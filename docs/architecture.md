@@ -1,125 +1,57 @@
-# 架构说明
+# 架构说明（Django 迁移后现状）
+
+> 历史背景：本项目从自维护 PSQL + 独立编排层迁移到 Django 主运行时
+> （见 `docs/architecture/django-target-architecture.md` 的迁移目标）。
+> 迁移完成后，旧边界 `infra/psql`、`application/gate/*`、`orchestration/`、
+> `interface/` 均已删除（顶层 `orchestration/` 死代码于公开快照前清理），
+> Neo4j runtime 已下线。本文件描述当前实际结构。
 
 ## 目录结构
 
 ```text
 src/
-├── domain/
-│   └── models/
+├── domain/              # 领域层：models（Django ORM）+ rules（纯规则）
 ├── application/
-│   ├── <业务模块>
-│   └── gate/
-│       ├── dependency/
-│       └── function/
-├── infra/
-├── orchestration/
-└── interface/
+│   ├── use_case/        # 业务用例：meeting / monday / task_masterlist / beat
+│   ├── tasks/           # Celery task 注册处（thin，直接调 use_case / workflow）
+│   ├── event/           # LLM 事件流水线各阶段服务
+│   ├── fireflies/       # Fireflies 拉取/入库服务
+│   ├── meeting_wash/    # 转录清洗
+│   ├── task_masterlist/ # 主清单同步/写服务
+│   └── locks/           # 分布式锁
+├── django_client/       # 基础设施①：Django 侧能力（ORM 查询写入、UoW 事务、
+│                        # meeting/job/lifecycle/task_masterlist/monday/logs）
+├── django_workflow/     # 多用例组装：meeting_pipeline / monday_sync /
+│                        # task_masterlist_publish / beat_dispatch
+├── external_client/     # 基础设施②：非 Django 外部服务
+│                        # （fireflies / monday / llm / qdrant / cache / config）
+├── web/                 # HTTP 层：GraphQL schema/queries/mutations、views
+├── admin.py / apps.py / urls.py / celery_app.py
+└── migrations/
 ```
 
----
+## 核心结论：只剩两种基础设施
 
-## 分层职责
+迁移后基础设施收敛为两类，再无其他 infra 抽象：
 
-| 目录 | 职责 |
-|---|---|
-| `domain/` | 存放领域模型与业务概念 |
-| `domain/models/` | 存放核心模型、状态、枚举、领域规则 |
-| `application/` | 存放实际业务实现模块 |
-| `application/<业务模块>` | 承载具体业务逻辑 |
-| `application/gate/` | application 的访问边界 |
-| `application/gate/dependency/` | 定义 application 需要的依赖抽象 |
-| `application/gate/function/` | 对外提供 application 业务调用入口 |
-| `infra/` | 提供 dependency 所需的具体实现 |
-| `orchestration/` | 调度 interface 与 gate/function 之间的业务流程 |
-| `interface/` | 系统入口层，承接外部调用 |
+| # | 基础设施 | 位置 | 管什么 |
+|---|---|---|---|
+| ① | Django 侧 | `django_client/` | ORM 查询写入、事务边界（UoW）、本地状态 |
+| ② | 外部服务 | `external_client/` | Fireflies、Monday、LLM/Embedding、Qdrant、缓存 |
 
----
+- PSQL 已由 Django ORM 接管，不再手写 engine/session。
+- `application/use_case` 只调这两类 infra + `domain/rules`，不关心依赖装配。
+- `web/`（HTTP）与 `application/tasks/`（Celery）同属 Django 运行时，直接进
+  `django_client`，不再经过编排/网关中间层。
 
 ## 调用关系
 
 ```text
-interface
-    ↓
-orchestration
-    ↓
-application/gate/function
-    ↓
-application/<业务模块>
-    ↓
-application/gate/dependency
-    ↑
-infra
+HTTP          -> web/ -> django_client / application.tasks.delay()
+Celery        -> application/tasks/*.py -> use_case/* 或 django_workflow/*
+Use case      -> django_client + external_client + domain/rules
+Django client -> domain/models + domain/rules
 ```
 
----
-
-## 层级说明
-
-### `domain/`
-
-领域层。
-用于放置系统中的核心业务概念。
-
----
-
-### `application/`
-
-应用层。
-用于放置真正的业务实现。
-
-`application/` 下的业务模块直接平铺，不再额外嵌套一层业务目录。
-
----
-
-### `application/gate/`
-
-应用访问边界。
-用于隔离外部调度与 application 内部业务实现。
-
----
-
-### `application/gate/dependency/`
-
-依赖定义区。
-用于声明 application 执行业务时需要的外部能力。
-
----
-
-### `application/gate/function/`
-
-业务入口区。
-用于接收 orchestration 的调用，并进入 application 内部业务模块。
-
----
-
-### `infra/`
-
-基础设施层。
-用于提供 `application/gate/dependency/` 所定义依赖的具体实现。
-
----
-
-### `orchestration/`
-
-调度层。
-用于连接 `interface` 和 `application/gate/function`。
-
----
-
-### `interface/`
-
-入口层。
-用于承接外部系统、框架、协议或运行环境的调用。
-
----
-
-## 核心结构关系
-
-```text
-外部调用进入 interface
-interface 交给 orchestration
-orchestration 调用 gate/function
-gate/function 调用 application 业务模块
-application 业务模块通过 dependency 使用外部能力
-infra 提供 dependency 的具体实现
-```
+禁止方向：`domain -> application/web/Celery/external_client`，
+`external_client -> django_client`。

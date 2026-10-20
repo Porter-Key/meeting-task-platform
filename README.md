@@ -23,11 +23,10 @@ src/                    # Django runtime (see src/README.md for details)
 ├── domain/             # models + rules (lifecycle state machine, retry policy)
 ├── application/        # event pipeline, fireflies ingest, meeting wash,
 │                       # task masterlist, celery tasks, use-case entry points
-├── django_client/      # repositories, UnitOfWork, per-domain adapters
-├── django_workflow/    # thin runners: ingest → wash → generate, beat dispatch…
-├── external_client/    # fireflies / monday / llm / qdrant / cache clients + config
+├── django_client/      # infra ①：Django 侧（ORM、事务、本地状态）
+├── django_workflow/    # 多用例组装：ingest → wash → generate、beat dispatch…
+├── external_client/    # infra ②：外部服务（fireflies/monday/llm/qdrant/cache）
 └── web/                # GraphQL schema/queries/mutations, serializers, views
-orchestration/          # standalone flow scripts
 scripts/                # ops helpers (e.g. qdrant copy)
 dockers/                # local infra (postgres / qdrant / redis)
 config/                 # runtime config (example only — real config is gitignored)
