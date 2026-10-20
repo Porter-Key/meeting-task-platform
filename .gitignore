@@ -1,0 +1,26 @@
+.cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+
+# Local secrets and runtime config
+.env
+.env.*
+config/config.yaml
+
+# Database/runtime dumps and generated outputs
+dumps/
+*.dump
+*.sql
+*.sqlite
+
+# Logs / experiment outputs
+*.log
+*.jsonl
+*.output.json
+
+# Local runtime compose with real secrets (see dockers/docker-compose.example.yaml)
+dockers/docker-compose.yaml

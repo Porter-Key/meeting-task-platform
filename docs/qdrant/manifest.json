@@ -1,0 +1,132 @@
+{
+  "name": "qdrant",
+  "fetched_at": "2026-05-07T05:05:40.725080+00:00",
+  "documents": [
+    {
+      "url": "https://qdrant.tech/documentation/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation.md",
+      "bytes": 4756
+    },
+    {
+      "url": "https://qdrant.tech/documentation/quickstart/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-quickstart.md",
+      "bytes": 15685,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/quickstart.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/concepts/collections/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-concepts-collections.md",
+      "bytes": 19087,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/manage-data/collections.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/concepts/points/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-concepts-points.md",
+      "bytes": 19162,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/manage-data/points.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/concepts/vectors/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-concepts-vectors.md",
+      "bytes": 11139,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/manage-data/vectors.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/concepts/payload/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-concepts-payload.md",
+      "bytes": 11394,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/manage-data/payload.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/concepts/search/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-concepts-search.md",
+      "bytes": 21828,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/search/search.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/concepts/filtering/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-concepts-filtering.md",
+      "bytes": 18642,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/search/filtering.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/concepts/indexing/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-concepts-indexing.md",
+      "bytes": 23536,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/manage-data/indexing.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/concepts/storage/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-concepts-storage.md",
+      "bytes": 6228,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/manage-data/storage.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/concepts/hybrid-queries/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-concepts-hybrid-queries.md",
+      "bytes": 7854,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/search/hybrid-queries.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/cloud/quickstart-cloud/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-cloud-quickstart-cloud.md",
+      "bytes": 43286,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/cloud-quickstart.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/frameworks/langchain/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-frameworks-langchain.md",
+      "bytes": 7044,
+      "source_raw": "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/frameworks/langchain.md"
+    },
+    {
+      "url": "https://qdrant.tech/documentation/interfaces/rest/",
+      "status": 404,
+      "last_modified": ""
+    },
+    {
+      "url": "https://qdrant.tech/documentation/faq/",
+      "status": 200,
+      "last_modified": "",
+      "file": "documentation-faq.md",
+      "bytes": 27964,
+      "source_raw": [
+        "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/faq/_index.md",
+        "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/faq/qdrant-fundamentals.md",
+        "https://raw.githubusercontent.com/qdrant/landing_page/master/qdrant-landing/content/documentation/faq/database-optimization.md"
+      ]
+    },
+    {
+      "url": "https://api.qdrant.tech/v-1-17-x/llms.txt",
+      "status": 200,
+      "file": "api-v1.17-llms.txt.md",
+      "bytes": 9432
+    }
+  ]
+}

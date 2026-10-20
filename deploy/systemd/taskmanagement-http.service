@@ -1,0 +1,20 @@
+[Unit]
+Description=Taskmanagement HTTP API
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/taskmanagement/pythoncore
+Environment=PYTHONPATH=src:.
+Environment=TASKMANAGEMENT_SERVICE_ROLE=http
+ExecStart=/root/.local/bin/uv run uvicorn app.main:app --host 127.0.0.1 --port 8765 --workers 2
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

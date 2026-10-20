@@ -1,0 +1,32 @@
+[
+  {
+    "id": "processable_fresh_chunks_no_tasks",
+    "input": {"task_count": 0, "terminal_lifecycle_count": 0, "running_count": 0, "attempt_count": 0, "max_attempts": 3, "has_chunks": true},
+    "expected": true
+  },
+  {
+    "id": "no_chunks_never_process",
+    "input": {"task_count": 0, "terminal_lifecycle_count": 0, "running_count": 0, "attempt_count": 0, "max_attempts": 3, "has_chunks": false},
+    "expected": false
+  },
+  {
+    "id": "already_has_tasks_not_pending",
+    "input": {"task_count": 1, "terminal_lifecycle_count": 0, "running_count": 0, "attempt_count": 0, "max_attempts": 3, "has_chunks": true},
+    "expected": false
+  },
+  {
+    "id": "terminal_no_tasks_not_pending",
+    "input": {"task_count": 0, "terminal_lifecycle_count": 1, "running_count": 0, "attempt_count": 0, "max_attempts": 3, "has_chunks": true},
+    "expected": false
+  },
+  {
+    "id": "running_not_double_processed",
+    "input": {"task_count": 0, "terminal_lifecycle_count": 0, "running_count": 1, "attempt_count": 0, "max_attempts": 3, "has_chunks": true},
+    "expected": false
+  },
+  {
+    "id": "max_attempts_exhausted_not_pending",
+    "input": {"task_count": 0, "terminal_lifecycle_count": 0, "running_count": 0, "attempt_count": 3, "max_attempts": 3, "has_chunks": true},
+    "expected": false
+  }
+]

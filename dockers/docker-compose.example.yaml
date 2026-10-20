@@ -1,0 +1,54 @@
+services:
+  taskmanagement-postgres:
+    image: postgres:16-alpine
+    container_name: taskmanagement-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: taskmanagement
+      POSTGRES_PASSWORD: CHANGE_ME_POSTGRES_PASSWORD
+      POSTGRES_DB: taskmanagement
+    ports:
+      # Local-only binding. Keep this aligned with config/config.example.yaml infra.psql.port.
+      - "127.0.0.1:15433:5432"
+    volumes:
+      - taskmanagement_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskmanagement -d taskmanagement"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  taskmanagement-qdrant:
+    image: qdrant/qdrant:latest
+    container_name: taskmanagement-qdrant
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:16333:6333"
+      - "127.0.0.1:16334:6334"
+    volumes:
+      - taskmanagement_qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/6333'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  taskmanagement-redis:
+    image: redis:7-alpine
+    container_name: taskmanagement-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    ports:
+      - "127.0.0.1:16380:6379"
+    volumes:
+      - taskmanagement_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  taskmanagement_postgres_data:
+  taskmanagement_qdrant_data:
+  taskmanagement_redis_data:

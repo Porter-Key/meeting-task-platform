@@ -1,0 +1,100 @@
+infra:
+  psql:
+    driver: postgresql+psycopg
+    host: 127.0.0.1
+    # Keep this aligned with dockers/docker-compose.example.yaml.
+    port: 15433
+    username: taskmanagement
+    password: CHANGE_ME_POSTGRES_PASSWORD
+    database: taskmanagement
+    # Optional SQLAlchemy-style connection string. Leave empty to build from fields above.
+    connection_string: ""
+    pool_pre_ping: true
+  logs:
+    service_name: taskmanagement-django
+    level: INFO
+    json: true
+    add_timestamp: true
+  neo4j:
+    # Neo4j is not required by the current Django runtime; keep placeholders only if enabled later.
+    host: 127.0.0.1
+    port: 7687
+    username: neo4j
+    password: CHANGE_ME_NEO4J_PASSWORD
+  qdrant:
+    host: 127.0.0.1
+    port: 16333
+    grpc_port: 16334
+  langchain:
+    default_llm_provider: opus5
+    default_embedding_provider: openrouter
+    stream_usage: false
+    cache_enabled: true
+    cache_path: .cache/langchain_llm
+  celery:
+    app_name: taskmanagement-django
+    broker_url: redis://127.0.0.1:16380/0
+    result_backend: redis://127.0.0.1:16380/1
+    task_default_queue: taskmanagement-django
+    worker_prefetch_multiplier: 1
+    worker_max_tasks_per_child: 10
+    task_acks_late: true
+    task_reject_on_worker_lost: true
+  redis:
+    lock_url: redis://127.0.0.1:16380/3
+
+django:
+  # Override with DJANGO_SECRET_KEY in production when possible.
+  secret_key: CHANGE_ME_DJANGO_SECRET_KEY
+  debug: false
+  allowed_hosts:
+    - taskmanage.example.com
+    - 127.0.0.1
+    - localhost
+  csrf_trusted_origins:
+    - https://taskmanage.example.com
+  session_cookie_secure: true
+  csrf_cookie_secure: true
+  # Frontend/reverse proxy owns HTTP->HTTPS redirects.
+  secure_ssl_redirect: false
+  secure_hsts_seconds: 31536000
+  secure_hsts_include_subdomains: true
+  secure_hsts_preload: true
+  secure_proxy_ssl_header:
+    - HTTP_X_FORWARDED_PROTO
+    - https
+
+fireflies:
+  graphql_url: https://api.fireflies.ai/graphql
+  timeout_seconds: 30
+  api_key: CHANGE_ME_FIREFLIES_API_KEY
+
+monday:
+  graphql_url: https://api.monday.com/v2
+  api_version: "2024-01"
+  timeout_seconds: 30
+  api_token: CHANGE_ME_MONDAY_API_TOKEN
+
+embedding:
+  provider: openrouter
+  base_url: https://openrouter.ai/api/v1
+  model: qwen/qwen3-embedding-8b
+  api_key: CHANGE_ME_EMBEDDING_API_KEY
+
+llm:
+  openrouter:
+    base_url: https://openrouter.ai/api/v1
+    models:
+      - qwen/qwen3.5-flash-02-23
+    extra_body:
+      reasoning:
+        enabled: false
+    api_key: CHANGE_ME_OPENROUTER_API_KEY
+  opus5:
+    base_url: https://api.opus5.xyz/v1
+    models:
+      - gpt-5.4-mini-L
+      - gpt-5.4-mini
+      - gpt-5.4
+    use_responses_api: false
+    api_key: CHANGE_ME_OPUS5_API_KEY

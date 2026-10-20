@@ -1,0 +1,19 @@
+[Unit]
+Description=Taskmanagement Celery Worker
+After=network-online.target docker.service taskmanagement-http.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/taskmanagement/pythoncore
+Environment=PYTHONPATH=src:.
+Environment=TASKMANAGEMENT_SERVICE_ROLE=celery-worker
+ExecStart=/root/.local/bin/uv run celery -A orchestration.tasks.event_tasks worker -Q taskmanagement --loglevel=INFO --concurrency=2 --max-tasks-per-child=10 --prefetch-multiplier=1
+Restart=always
+RestartSec=5
+TimeoutStopSec=60
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

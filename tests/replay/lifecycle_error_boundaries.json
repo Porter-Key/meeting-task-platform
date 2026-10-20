@@ -1,0 +1,57 @@
+[
+  {
+    "id": "quota_403_zh",
+    "error": "PermissionDeniedError: Error code: 403 - 用户额度不足, 剩余额度: ¥-0.002932; code=insufficient_user_quota",
+    "expected": {
+      "status": "blocked_terminal",
+      "reason": "llm_quota_exhausted",
+      "retryable": false,
+      "cleanup_artifacts": true,
+      "disable_beat": true
+    }
+  },
+  {
+    "id": "http_503_transient",
+    "error": "upstream 503 service unavailable while generating events",
+    "expected": {
+      "status": "failed_retryable",
+      "reason": "transient_provider_error",
+      "retryable": true,
+      "cleanup_artifacts": true,
+      "disable_beat": false
+    }
+  },
+  {
+    "id": "timeout_transient",
+    "error": "ReadTimeout: request timeout from LLM provider",
+    "expected": {
+      "status": "failed_retryable",
+      "reason": "transient_provider_error",
+      "retryable": true,
+      "cleanup_artifacts": true,
+      "disable_beat": false
+    }
+  },
+  {
+    "id": "validation_terminal",
+    "error": "ValidationError: invalid schema for generated event payload",
+    "expected": {
+      "status": "blocked_terminal",
+      "reason": "validation_or_schema_error",
+      "retryable": false,
+      "cleanup_artifacts": true,
+      "disable_beat": false
+    }
+  },
+  {
+    "id": "unknown_retryable",
+    "error": "unexpected provider response without classification",
+    "expected": {
+      "status": "failed_retryable",
+      "reason": "unknown_retryable_error",
+      "retryable": true,
+      "cleanup_artifacts": true,
+      "disable_beat": false
+    }
+  }
+]

@@ -1,0 +1,90 @@
+{
+  "name": "neo4j",
+  "fetched_at": "2026-05-07T05:05:35.795123+00:00",
+  "documents": [
+    {
+      "url": "https://neo4j.com/docs/llms.txt",
+      "status": 200,
+      "last_modified": "Thu, 12 Mar 2026 12:54:24 GMT",
+      "file": "docs-llms.txt.md",
+      "bytes": 3343
+    },
+    {
+      "url": "https://neo4j.com/docs/getting-started/",
+      "status": 200,
+      "last_modified": "Tue, 05 May 2026 08:44:26 GMT",
+      "file": "docs-getting-started.md",
+      "bytes": 5962
+    },
+    {
+      "url": "https://neo4j.com/docs/cypher-manual/current/introduction/",
+      "status": 200,
+      "last_modified": "Tue, 05 May 2026 08:45:07 GMT",
+      "file": "docs-cypher-manual-current-introduction.md",
+      "bytes": 7762
+    },
+    {
+      "url": "https://neo4j.com/docs/cypher-manual/current/clauses/match/",
+      "status": 200,
+      "last_modified": "Tue, 05 May 2026 08:45:06 GMT",
+      "file": "docs-cypher-manual-current-clauses-match.md",
+      "bytes": 22420
+    },
+    {
+      "url": "https://neo4j.com/docs/cypher-manual/current/clauses/merge/",
+      "status": 200,
+      "last_modified": "Tue, 05 May 2026 08:45:06 GMT",
+      "file": "docs-cypher-manual-current-clauses-merge.md",
+      "bytes": 28763
+    },
+    {
+      "url": "https://neo4j.com/docs/cypher-manual/current/indexes/semantic-indexes/vector-indexes/",
+      "status": 200,
+      "last_modified": "Tue, 05 May 2026 08:45:07 GMT",
+      "file": "docs-cypher-manual-current-indexes-semantic-indexes-vector-indexes.md",
+      "bytes": 74965
+    },
+    {
+      "url": "https://neo4j.com/docs/operations-manual/current/docker/",
+      "status": 200,
+      "last_modified": "Wed, 06 May 2026 14:06:32 GMT",
+      "file": "docs-operations-manual-current-docker.md",
+      "bytes": 12543
+    },
+    {
+      "url": "https://neo4j.com/docs/operations-manual/current/configuration/",
+      "status": 200,
+      "last_modified": "Wed, 06 May 2026 14:06:31 GMT",
+      "file": "docs-operations-manual-current-configuration.md",
+      "bytes": 12553
+    },
+    {
+      "url": "https://neo4j.com/docs/python-manual/current/",
+      "status": 200,
+      "last_modified": "Wed, 15 Apr 2026 12:14:00 GMT",
+      "file": "docs-python-manual-current.md",
+      "bytes": 8982
+    },
+    {
+      "url": "https://neo4j.com/docs/query-api/current/",
+      "status": 200,
+      "last_modified": "Wed, 22 Apr 2026 08:00:17 GMT",
+      "file": "docs-query-api-current.md",
+      "bytes": 5748
+    },
+    {
+      "url": "https://neo4j.com/docs/http-api/current/",
+      "status": 200,
+      "last_modified": "Thu, 23 Apr 2026 12:29:33 GMT",
+      "file": "docs-http-api-current.md",
+      "bytes": 5753
+    },
+    {
+      "url": "https://neo4j.com/docs/genai/plugin/current/",
+      "status": 200,
+      "last_modified": "Mon, 27 Apr 2026 09:02:38 GMT",
+      "file": "docs-genai-plugin-current.md",
+      "bytes": 5011
+    }
+  ]
+}

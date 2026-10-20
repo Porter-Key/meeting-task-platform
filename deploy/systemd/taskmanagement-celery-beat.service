@@ -1,0 +1,19 @@
+[Unit]
+Description=Taskmanagement Celery Beat Scheduler
+After=network-online.target docker.service taskmanagement-celery.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/taskmanagement/pythoncore
+Environment=PYTHONPATH=src:.
+Environment=TASKMANAGEMENT_SERVICE_ROLE=celery-beat
+ExecStart=/root/.local/bin/uv run celery -A orchestration.tasks.event_tasks beat --loglevel=INFO --schedule /var/lib/taskmanagement/celerybeat-schedule.db
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
